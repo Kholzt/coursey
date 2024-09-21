@@ -69,8 +69,8 @@ const page = () => {
       <div className="p-4">
         <h1 className="font-bold text-2xl mb-5">My Course</h1>
         <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
-          {array.map((arr: any) => {
-            return <Card {...arr} />;
+          {array.map((arr: any, i: number) => {
+            return <Card key={i} {...arr} />;
           })}
         </div>
       </div>
