@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import React from "react";
 import Layout from "../../components/front/Layout";
-import Card from "./../../components/Card";
+import Card from "../../components/Card";
+import CategoryItem from "./CategoryItem";
+import SearchCourse from "./SearchCourse";
 export const metadata: Metadata = {
   title: "Coursey | My Course",
   description: "all your courses will be displayed here",
@@ -68,11 +70,48 @@ const array = [
     module: 5,
   },
 ];
+const categories = [
+  {
+    name: "All",
+    href: "all",
+  },
+  {
+    name: "Technology",
+    href: "technology",
+  },
+  {
+    name: "Science",
+    href: "science",
+  },
+  {
+    name: "Arts",
+    href: "arts",
+  },
+  {
+    name: "Business",
+    href: "business",
+  },
+  {
+    name: "Health",
+    href: "health",
+  },
+  {
+    name: "Education",
+    href: "education",
+  },
+];
+
 const page = () => {
   return (
     <Layout>
       <div className="p-4">
-        <h1 className="font-bold text-2xl mb-5">My Course</h1>
+        <h1 className="font-bold text-2xl mb-5">All Course</h1>
+        <div className="mb-4 flex gap-2">
+          {categories.map((category: any, i: number) => {
+            return <CategoryItem href={category.href} name={category.name} />;
+          })}
+        </div>
+        <SearchCourse />
         <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
           {array.map((arr: any, i: number) => {
             return <Card key={i} {...arr} />;

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import React from "react";
 import Layout from "../../components/front/Layout";
-import Card from "./../../components/Card";
+import Card from "../../components/Card";
 export const metadata: Metadata = {
   title: "Coursey | My Course",
   description: "all your courses will be displayed here",
@@ -17,7 +17,6 @@ const array = [
     authorLink: "images/profile.jpg",
     categoryName: "Web Development",
     categoryLink: "https://example.com/categories/web-development",
-    module: 5,
   },
   {
     image: "/images/course.jpg",
@@ -29,7 +28,6 @@ const array = [
     authorLink: "images/profile.jpg",
     categoryName: "Data Science",
     categoryLink: "https://example.com/categories/data-science",
-    module: 5,
   },
   {
     image: "/images/course.jpg",
@@ -41,7 +39,6 @@ const array = [
     authorLink: "images/profile.jpg",
     categoryName: "Design",
     categoryLink: "https://example.com/categories/design",
-    module: 5,
   },
   {
     image: "/images/course.jpg",
@@ -53,7 +50,6 @@ const array = [
     authorLink: "images/profile.jpg",
     categoryName: "Artificial Intelligence",
     categoryLink: "https://example.com/categories/artificial-intelligence",
-    module: 5,
   },
   {
     image: "/images/course.jpg",
@@ -65,7 +61,6 @@ const array = [
     authorLink: "images/profile.jpg",
     categoryName: "Marketing",
     categoryLink: "https://example.com/categories/marketing",
-    module: 5,
   },
 ];
 const page = () => {

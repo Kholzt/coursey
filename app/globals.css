@@ -17,8 +17,17 @@
 body {
   font-family: "Inter", system-ui;
 }
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  :where(input, textarea):focus {
+    border: 1px solid #4955fd;
+    transition: all 0.5s;
+  }
+  :where(input, textarea):focus + svg {
+    color: #4955fd;
+    transition: all 0.5s;
   }
 }

@@ -12,7 +12,7 @@ const SidebarItem: React.FC<SidebarItemProps> = (props) => {
     <li>
       <Link
         href={href}
-        className={`px-4 py-2 block  ${
+        className={`px-4 py-2 block text-sm  ${
           isActive ? "bg-[#4955FD] text-white" : "hover:bg-slate-100"
         } rounded-md`}
       >
