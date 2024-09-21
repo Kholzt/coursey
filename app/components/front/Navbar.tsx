@@ -1,8 +1,8 @@
 import Image from "next/image";
 // import Link from "next/link";
 import React from "react";
-interface NavbarProps {}
-const Navbar: React.FC<NavbarProps> = () => {
+
+const Navbar: React.FC = () => {
   return (
     <nav className="flex border-b  py-2 px-4">
       <div className="ms-auto">
