@@ -108,7 +108,9 @@ const page = () => {
         <h1 className="font-bold text-2xl mb-5">All Course</h1>
         <div className="mb-4 flex gap-2">
           {categories.map((category: any, i: number) => {
-            return <CategoryItem href={category.href} name={category.name} />;
+            return (
+              <CategoryItem href={category.href} key={i} name={category.name} />
+            );
           })}
         </div>
         <SearchCourse />
