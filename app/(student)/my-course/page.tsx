@@ -13,7 +13,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Mastering JavaScript for Web Development",
     price: "$49.99",
-    href: "images/profile.jpg",
+    id: "12345",
     authorName: "John Doe",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -25,7 +25,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Introduction to Data Science with Python",
     price: "$59.99",
-    href: "images/profile.jpg",
+    id: "12345",
     authorName: "Jane Smith",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -37,7 +37,7 @@ const array = [
     image: "/images/course.jpg",
     title: "UI/UX Design for Beginners",
     price: "$39.99",
-    href: "images/profile.jpg",
+    id: "12345",
     authorName: "Alex Johnson",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -49,7 +49,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Advanced Machine Learning with TensorFlow",
     price: "$79.99",
-    href: "images/profile.jpg",
+    id: "12345",
     authorName: "Emily Davis",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -61,7 +61,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Digital Marketing Strategies for 2024",
     price: "$29.99",
-    href: "images/profile.jpg",
+    id: "12345",
     authorName: "Michael Brown",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -78,7 +78,15 @@ const page = () => {
         {array.length > 0 ? (
           <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
             {array.map((arr: any, i: number) => {
-              return <Card key={i} {...arr} purchased progress={90} />;
+              return (
+                <Card
+                  key={i}
+                  {...arr}
+                  href={`/course/${arr.id}`}
+                  purchased
+                  progress={90}
+                />
+              );
             })}
           </div>
         ) : (
@@ -96,7 +104,7 @@ const page = () => {
             </h4>
             <p> Start learning by exploring our courses!</p>
             <Link
-              href={"/all-course"}
+              id={"12345"}
               className="mt-4 px-4 py-2 bg-[#4955FD] hover:bg-[#4955FD]/90 rounded-md text-white"
             >
               All Course

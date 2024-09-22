@@ -13,7 +13,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Mastering JavaScript for Web Development",
     price: "$49.99",
-    href: "/all-course/123456",
+    id: "123456",
     authorName: "John Doe",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -25,7 +25,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Introduction to Data Science with Python",
     price: "$59.99",
-    href: "/all-course/123456",
+    id: "123456",
     authorName: "Jane Smith",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -37,7 +37,7 @@ const array = [
     image: "/images/course.jpg",
     title: "UI/UX Design for Beginners",
     price: "$39.99",
-    href: "/all-course/123456",
+    id: "123456",
     authorName: "Alex Johnson",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -49,7 +49,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Advanced Machine Learning with TensorFlow",
     price: "$79.99",
-    href: "/all-course/123456",
+    id: "123456",
     authorName: "Emily Davis",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -61,7 +61,7 @@ const array = [
     image: "/images/course.jpg",
     title: "Digital Marketing Strategies for 2024",
     price: "$29.99",
-    href: "/all-course/123456",
+    id: "123456",
     authorName: "Michael Brown",
     authorImage: "/images/profile.jpg",
     authorLink: "images/profile.jpg",
@@ -116,7 +116,7 @@ const page = () => {
         <SearchCourse />
         <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
           {array.map((arr: any, i: number) => {
-            return <Card key={i} {...arr} />;
+            return <Card key={i} {...arr} href={`/course/${arr.id}`} />;
           })}
         </div>
       </div>
