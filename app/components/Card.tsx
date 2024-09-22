@@ -13,6 +13,8 @@ interface CardProps {
   authorLink: string;
   categoryName: string;
   categoryLink: string;
+  purchased: boolean;
+  progress?: number;
 }
 const Card: React.FC<CardProps> = (props) => {
   const {
@@ -25,7 +27,16 @@ const Card: React.FC<CardProps> = (props) => {
     authorLink,
     href,
     module,
+    purchased,
+    progress = 0,
   } = props;
+
+  const indicatorColor =
+    progress > 70
+      ? "bg-green-400"
+      : progress > 50
+      ? "bg-yellow-400"
+      : "bg-red-400";
   return (
     <article className="p-3 border rounded-md flex flex-col hover:shadow-2xl transition-all hover:shadow-[#4955FD]/20">
       <figure className="relative">
@@ -50,7 +61,19 @@ const Card: React.FC<CardProps> = (props) => {
             <BookOpen className="bg-[#4955FD]/10 w-[35px] h-[35px] text-[#4955FD]/80 px-2 py-1 rounded-full" />
             {module} Module
           </div>
-          <span className="block font-bold text-md mb-2">{price}</span>
+          {purchased ? (
+            <div className="flex flex-col gap-2 mb-4 mt-2">
+              <div className="bg-slate-200 overflow-hidden w-full h-2 rounded-lg">
+                <div
+                  className={`${indicatorColor}  h-full`}
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <small className="">Progress {progress}%</small>
+            </div>
+          ) : (
+            <span className="block font-bold text-md mb-2">{price}</span>
+          )}
         </div>
         <div className="">
           <hr />

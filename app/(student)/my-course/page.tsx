@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import React from "react";
 import Layout from "../../components/front/Layout";
 import Card from "./../../components/Card";
+import Link from "next/link";
+import Image from "next/image";
 export const metadata: Metadata = {
   title: "Coursey | My Course",
   description: "all your courses will be displayed here",
@@ -73,11 +75,34 @@ const page = () => {
     <Layout>
       <div className="p-4">
         <h1 className="font-bold text-2xl mb-5">My Course</h1>
-        <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
-          {array.map((arr: any, i: number) => {
-            return <Card key={i} {...arr} />;
-          })}
-        </div>
+        {array.length > 0 ? (
+          <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
+            {array.map((arr: any, i: number) => {
+              return <Card key={i} {...arr} purchased progress={90} />;
+            })}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center flex-col min-h-[300px] text-center">
+            <Image
+              src={"/images/no-data.jpg"}
+              width={300}
+              height={300}
+              alt="no-data"
+              layout="responsive"
+              className="max-w-[300px]"
+            />
+            <h4 className="font-bold text-xl">
+              You haven't enrolled in any courses yet.
+            </h4>
+            <p> Start learning by exploring our courses!</p>
+            <Link
+              href={"/all-course"}
+              className="mt-4 px-4 py-2 bg-[#4955FD] hover:bg-[#4955FD]/90 rounded-md text-white"
+            >
+              All Course
+            </Link>
+          </div>
+        )}
       </div>
     </Layout>
   );

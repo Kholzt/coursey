@@ -4,7 +4,7 @@ import React from "react";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="flex border-b  py-2 px-4">
+    <nav className="flex border-b sticky top-0 right-0 z-[99] bg-white py-2 px-4">
       <div className="ms-auto">
         <Image
           src={"/images/profile.jpg"}
