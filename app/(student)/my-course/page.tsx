@@ -104,7 +104,7 @@ const page = () => {
             </h4>
             <p> Start learning by exploring our courses!</p>
             <Link
-              id={"12345"}
+              href={"/all-course"}
               className="mt-4 px-4 py-2 bg-[#4955FD] hover:bg-[#4955FD]/90 rounded-md text-white"
             >
               All Course
