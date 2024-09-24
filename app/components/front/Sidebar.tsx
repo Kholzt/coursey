@@ -5,6 +5,7 @@ import React from "react";
 import SidebarItem from "./SidebarItem";
 import { usePathname } from "next/navigation";
 import { Book, List, User } from "lucide-react";
+import { useGlobalContext } from "@/context/GlobalContext";
 const menus = [
   {
     href: "/my-course",
@@ -24,8 +25,14 @@ const menus = [
 ];
 const Sidebar = () => {
   const pathname = usePathname();
+  const { isOpen } = useGlobalContext();
+  const sidebarActive = isOpen;
   return (
-    <aside className="p-4 md:w-[250px] max-h-screen border-r z-[99] sticky top-0 left-0 ">
+    <aside
+      className={`p-4 md:w-[250px] bg-white h-screen w-full z-[100] max-h-screen border-r transition-all  md:sticky top-0 md:left-0 absolute ${
+        sidebarActive ? "left-0" : "left-[-100%]"
+      } `}
+    >
       <Link href={"/"} className="text-xl">
         <Image
           src="/images/logo.svg"

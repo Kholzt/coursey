@@ -9,6 +9,7 @@ const Video = () => {
         width={500}
         height={500}
         layout={"responsive"}
+        objectFit="cover"
         alt="Courses"
         className="w-full aspect-video rounded-md"
       />

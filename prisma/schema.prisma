@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // Sesuaikan dengan database yang digunakan (e.g., "postgresql", "sqlite")
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String   @unique // Slug untuk URL yang lebih ramah SEO
+  email     String   @unique
+  password  String?  // Optional jika menggunakan OAuth
+  role      Role
+  createdAt DateTime @default(now())
+  thumbnail String?  // URL gambar profil pengguna
+  courses   Course[] @relation("InstructorCourses")
+  enrollments Enrollment[]
+  payments  Payment[]
+  reviews   CourseReview[]
+  quizResults QuizResult[]
+  certificates CourseCertificate[]
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String   @unique // Slug untuk kategori
+  createdAt DateTime @default(now())
+  thumbnail String?  // URL gambar kategori
+  courses   Course[]
+}
+
+model Course {
+  id          Int          @id @default(autoincrement())
+  title       String
+  slug        String       @unique // Slug untuk kursus
+  description String?
+  price       Float
+  thumbnail   String?      // URL gambar kursus
+  createdAt   DateTime      @default(now())
+  instructor  User          @relation("InstructorCourses", fields: [instructorId], references: [id])
+  instructorId Int
+  category    Category      @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  modules     CourseModule[]
+  enrollments Enrollment[]
+  payments    Payment[]
+  reviews     CourseReview[]
+  certificates CourseCertificate[]
+}
+
+model CourseModule {
+  id          Int          @id @default(autoincrement())
+  course      Course        @relation(fields: [courseId], references: [id])
+  courseId    Int
+  title       String
+  content     String?
+  videoUrl    String?
+  moduleType  ModuleType
+  orderNumber Int
+  createdAt   DateTime      @default(now())
+  quizzes     Quiz[]
+}
+
+model Quiz {
+  id          Int          @id @default(autoincrement())
+  module      CourseModule  @relation(fields: [moduleId], references: [id])
+  moduleId    Int
+  title       String
+  description String?
+  totalPoints Int
+  createdAt   DateTime      @default(now())
+  questions   QuizQuestion[]
+  results     QuizResult[]  // Relasi dua arah dengan QuizResult
+}
+
+model QuizQuestion {
+  id          Int          @id @default(autoincrement())
+  quiz        Quiz          @relation(fields: [quizId], references: [id])
+  quizId      Int
+  questionText String
+  questionType QuestionType
+  createdAt   DateTime      @default(now())
+  choices     QuizChoice[]
+}
+
+model QuizChoice {
+  id         Int        @id @default(autoincrement())
+  question   QuizQuestion @relation(fields: [questionId], references: [id])
+  questionId Int
+  choiceText String
+  isCorrect  Boolean     @default(false)
+}
+
+model Enrollment {
+  id          Int          @id @default(autoincrement())
+  student     User          @relation(fields: [studentId], references: [id])
+  studentId   Int
+  course      Course        @relation(fields: [courseId], references: [id])
+  courseId    Int
+  progress    Float         @default(0)
+  enrolledAt  DateTime      @default(now())
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  course        Course   @relation(fields: [courseId], references: [id])
+  courseId      Int
+  amount        Float
+  paymentStatus PaymentStatus
+  paymentGateway String
+  transactionId String  @unique
+  paymentDate   DateTime @default(now())
+}
+
+model QuizResult {
+  id        Int      @id @default(autoincrement())
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId Int
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  quizId    Int
+  score     Int
+  takenAt   DateTime @default(now())
+}
+
+model CourseReview {
+  id        Int      @id @default(autoincrement())
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId Int
+  rating    Int
+  comment   String?
+  reviewDate DateTime @default(now())
+}
+
+model CourseCertificate {
+  id          Int      @id @default(autoincrement())
+  certificateUrl String
+  issuedAt    DateTime @default(now())
+  student     User     @relation(fields: [studentId], references: [id])
+  studentId   Int
+  course      Course   @relation(fields: [courseId], references: [id])
+  courseId    Int
+}
+
+enum Role {
+  student
+  instructor
+  admin
+}
+
+enum ModuleType {
+  video
+  quiz
+  text
+}
+
+enum QuestionType {
+  multiple_choice
+  true_false
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+}

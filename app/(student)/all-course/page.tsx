@@ -4,119 +4,49 @@ import Layout from "../../components/front/Layout";
 import Card from "../../components/Card";
 import CategoryItem from "./CategoryItem";
 import SearchCourse from "./SearchCourse";
+import { useFetchServer } from "./../../../hooks/useFetch";
 export const metadata: Metadata = {
   title: "Coursey | My Course",
   description: "all your courses will be displayed here",
 };
-const array = [
-  {
-    image: "/images/course.jpg",
-    title: "Mastering JavaScript for Web Development",
-    price: "$49.99",
-    id: "123456",
-    authorName: "John Doe",
-    authorImage: "/images/profile.jpg",
-    authorLink: "images/profile.jpg",
-    categoryName: "Web Development",
-    categoryLink: "https://example.com/categories/web-development",
-    module: 5,
-  },
-  {
-    image: "/images/course.jpg",
-    title: "Introduction to Data Science with Python",
-    price: "$59.99",
-    id: "123456",
-    authorName: "Jane Smith",
-    authorImage: "/images/profile.jpg",
-    authorLink: "images/profile.jpg",
-    categoryName: "Data Science",
-    categoryLink: "https://example.com/categories/data-science",
-    module: 5,
-  },
-  {
-    image: "/images/course.jpg",
-    title: "UI/UX Design for Beginners",
-    price: "$39.99",
-    id: "123456",
-    authorName: "Alex Johnson",
-    authorImage: "/images/profile.jpg",
-    authorLink: "images/profile.jpg",
-    categoryName: "Design",
-    categoryLink: "https://example.com/categories/design",
-    module: 5,
-  },
-  {
-    image: "/images/course.jpg",
-    title: "Advanced Machine Learning with TensorFlow",
-    price: "$79.99",
-    id: "123456",
-    authorName: "Emily Davis",
-    authorImage: "/images/profile.jpg",
-    authorLink: "images/profile.jpg",
-    categoryName: "Artificial Intelligence",
-    categoryLink: "https://example.com/categories/artificial-intelligence",
-    module: 5,
-  },
-  {
-    image: "/images/course.jpg",
-    title: "Digital Marketing Strategies for 2024",
-    price: "$29.99",
-    id: "123456",
-    authorName: "Michael Brown",
-    authorImage: "/images/profile.jpg",
-    authorLink: "images/profile.jpg",
-    categoryName: "Marketing",
-    categoryLink: "https://example.com/categories/marketing",
-    module: 5,
-  },
-];
-const categories = [
-  {
-    name: "All",
-    href: "all",
-  },
-  {
-    name: "Technology",
-    href: "technology",
-  },
-  {
-    name: "Science",
-    href: "science",
-  },
-  {
-    name: "Arts",
-    href: "arts",
-  },
-  {
-    name: "Business",
-    href: "business",
-  },
-  {
-    name: "Health",
-    href: "health",
-  },
-  {
-    name: "Education",
-    href: "education",
-  },
-];
 
-const page = () => {
+const page = async ({ searchParams }: { searchParams: any }) => {
+  const category = searchParams.category
+    ? "?category=" + searchParams.category
+    : "";
+  const { data: courses } = await useFetchServer(`/courses${category}`);
+  const { data: categories } = await useFetchServer(`/categories`);
   return (
     <Layout>
       <div className="p-4">
         <h1 className="font-bold text-2xl mb-5">All Course</h1>
         <div className="mb-4 flex gap-2">
+          <CategoryItem href={"all"} name={"All"} />
           {categories.map((category: any, i: number) => {
             return (
-              <CategoryItem href={category.href} key={i} name={category.name} />
+              <CategoryItem href={category.slug} key={i} name={category.name} />
             );
           })}
         </div>
         <SearchCourse />
         <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
-          {array.map((arr: any, i: number) => {
-            return <Card key={i} {...arr} href={`/course/${arr.id}`} />;
+          {courses?.map((course: any, i: number) => {
+            return (
+              <Card
+                key={i}
+                href={`/course/${course.slug}`}
+                image={course.thumbnail}
+                title={course.title}
+                price={course.price}
+                authorName={course.instructor.name}
+                authorImage={course.instructor.thumbnail}
+                categoryName={course.category.name}
+                authorLink={`/author/${course.instructor.slug}`}
+                categoryLink={`/category/${course.category.slug}`}
+                module={course.modules.length}
+                purchased={course.enrollments.length}
+              />
+            );
           })}
         </div>
       </div>
