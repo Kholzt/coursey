@@ -6,8 +6,8 @@ import CategoryItem from "./CategoryItem";
 import SearchCourse from "./SearchCourse";
 import { useFetchServer } from "./../../../hooks/useFetch";
 export const metadata: Metadata = {
-  title: "Coursey | My Course",
-  description: "all your courses will be displayed here",
+  title: "Coursey | All Course",
+  description: "all  courses will be displayed here",
 };
 
 const page = async ({ searchParams }: { searchParams: any }) => {
