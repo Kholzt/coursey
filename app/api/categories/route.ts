@@ -1,8 +1,7 @@
-import type { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { prisma } from "../../../prisma/prisma";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     const categories = await prisma.category.findMany();
     return new NextResponse(JSON.stringify(categories), {

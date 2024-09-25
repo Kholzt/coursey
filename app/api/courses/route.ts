@@ -1,8 +1,7 @@
-import type { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { prisma } from "./../../../prisma/prisma";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     const url = new URL(req.url || "");
     const params = new URLSearchParams(url.searchParams);
@@ -62,7 +61,7 @@ export async function GET(req: NextApiRequest) {
 }
 
 // Example function to get logged-in user ID, replace with your actual logic
-function getLoggedInUserId(req: NextApiRequest): number {
+function getLoggedInUserId(req: Request): number {
   // Extract user ID from request headers or session
   // This is just a placeholder
   return 1; // Replace with actual user ID logic
