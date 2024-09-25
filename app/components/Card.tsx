@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BookOpen } from "lucide-react";
-import { formatRupiah } from "@/currency";
+import { formatRupiah } from "@/utils/currency";
 interface CardProps {
   image: string;
   title: string;

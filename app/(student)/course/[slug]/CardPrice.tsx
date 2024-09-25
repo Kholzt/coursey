@@ -1,4 +1,4 @@
-import { formatRupiah } from "@/currency";
+import { formatRupiah } from "@/utils/currency";
 import { BookOpen } from "lucide-react";
 import React from "react";
 interface CardPriceProps {
@@ -9,7 +9,7 @@ const CardPrice: React.FC<CardPriceProps> = (props) => {
   const { price, countModule } = props;
   return (
     <div className="border p-4 rounded-md shadow-sm">
-      <h1 className="font-bold text-2xl">{formatRupiah  (price)}</h1>
+      <h1 className="font-bold text-2xl">{formatRupiah(price)}</h1>
       <div className="  text-sm mt-2 flex gap-2 items-center">
         <BookOpen className="bg-[#4955FD]/10 w-[35px] h-[35px] text-[#4955FD]/80 px-2 py-1 rounded-full" />
         {countModule} Module
