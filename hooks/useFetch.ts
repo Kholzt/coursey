@@ -43,7 +43,7 @@ export const useFetchServer = async (url: string, options?: RequestInit) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = (await response.json()) || [];
     return { data, error: null };
   } catch (err: any) {
     return { data: null, error: err.message };
