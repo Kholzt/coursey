@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import React from "react";
 import Layout from "../../components/front/Layout";
 import Card from "../../components/Card";
-import CategoryItem from "./CategoryItem";
 import SearchCourse from "./SearchCourse";
 import { useFetchServer } from "./../../../hooks/useFetch";
+import CategoryItem from "./../../components/CategoryItem";
 export const metadata: Metadata = {
   title: "Coursey | All Course",
   description: "all  courses will be displayed here",
@@ -19,12 +19,16 @@ const page = async ({ searchParams }: { searchParams: any }) => {
   return (
     <Layout>
       <div className="p-4">
-        <h1 className="font-bold text-2xl mb-5">All Course</h1>
         <div className="mb-4 flex gap-2">
-          <CategoryItem href={"all"} name={"All"} />
+          <CategoryItem baseUrl={"/"} href={" "} name={"All"} />
           {categories.map((category: any, i: number) => {
             return (
-              <CategoryItem href={category.slug} key={i} name={category.name} />
+              <CategoryItem
+                href={category.slug}
+                baseUrl={"/"}
+                key={i}
+                name={category.name}
+              />
             );
           })}
         </div>

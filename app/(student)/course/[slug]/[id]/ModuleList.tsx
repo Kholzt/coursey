@@ -12,17 +12,19 @@ interface ModuleListProps {
   modules: ModuleItemProps[];
 }
 const ModuleList: React.FC<ModuleListProps> = (props) => {
-  const { slug } = useParams();
+  const { slug ,id:idActive} = useParams();
   const { modules } = props;
   return (
+    <>
+    <h6 className="mb-2">All Module</h6>
     <ul>
       {modules.map((modul: ModuleItemProps) => {
-        const { isLock, id, title } = modul;
-        const isActive = slug == id;
+        const { isLock,   id, title } = modul;
+        const isActive = idActive == id;
         return (
           <li key={id}>
             <Link
-              href={`/course/${id}`}
+              href={`/course/${slug}/${id}`}
               className={`${
                 isActive && "border-[#4955FD] text-[#4955FD]"
               } border px-4 py-2 rounded-md flex gap-2 items-center mb-2 hover:bg-slate-100`}
@@ -32,7 +34,7 @@ const ModuleList: React.FC<ModuleListProps> = (props) => {
           </li>
         );
       })}
-    </ul>
+    </ul></>
   );
 };
 

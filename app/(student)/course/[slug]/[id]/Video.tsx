@@ -4,7 +4,8 @@ import Image from "next/image";
 const Video = () => {
   return (
     <>
-      <Image
+      <div className="border rounded-md p-4">
+        <Image
         src="/images/profile.jpg"
         width={500}
         height={500}
@@ -13,9 +14,10 @@ const Video = () => {
         alt="Courses"
         className="w-full aspect-video rounded-md"
       />
-      <div className="mt-4">
+      </div>
+      <div className="mt-4 border p-4 rounded-md">
         <h1 className="text-3xl mb-4">
-          Digital Marketing Strategies for 2024 - Introduction
+           Introduction
         </h1>
         <p className="text-base">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim culpa
