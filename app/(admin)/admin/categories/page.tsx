@@ -1,63 +1,101 @@
 import React from "react";
-import Layout from "./../../../components/front/Layout";
+import Layout from "../../../components/backend/Layout";
 import { useFetchServer } from "@/hooks/useFetch";
-import { Pencil, Trash } from "lucide-react";
+import AddCategory from "./AddCategory";
+import EditCategory from "./EditCategory";
+import DeleteCategory from "./DeleteCategory";
+import Image from "next/image";
+import SearchCategory from "./SearchCategory";
+import { Metadata } from "next";
 
-const page = async () => {
-  const { data } = await useFetchServer("/categories");
+export const metadata: Metadata = {
+  title: "Coursey | Categories",
+  description: "categories course",
+};
+
+const fetchCategories = async (search?: string) => {
+  let data = await useFetchServer("/categories");
+  if (search) {
+    data.data = data.data.filter((d: any) =>
+      d.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  return data;
+};
+const page = async ({
+  searchParams: { search },
+}: {
+  searchParams: { search?: string };
+}) => {
+  const { data } = await fetchCategories(search);
   return (
     <Layout>
       <div className="p-4">
         <div className="mb-4 flex">
-          <h1 className="text-3xl">Categories</h1>
-          <button className="px-4 py-2 ms-auto bg-[#4955FD] hover:bg-[#4955FD]/90 text-white rounded-md">
-            Add Category
-          </button>
+          <h1 className="text-3xl font-bold">Categories</h1>
+          <AddCategory />
         </div>
-        <div className="border rounded-md bg-white">
+        <div className="border rounded-md flex flex-col bg-white">
+          <SearchCategory />
           <table className="w-full">
             <thead>
               <tr>
-                <th scope="col" className="bg-slate-100 p-2 text-sm w-[100px]">
+                <th
+                  scope="col"
+                  className="bg-gray-100/70 p-2 text-sm w-[100px]"
+                >
                   No
                 </th>
 
                 <th
                   scope="col"
                   align="left"
-                  className="bg-slate-100 p-2 text-sm"
+                  className="bg-gray-100/70 p-2 text-sm w-[200px]"
+                >
+                  Thumnail
+                </th>
+                <th
+                  scope="col"
+                  align="left"
+                  className="bg-gray-100/70 p-2 text-sm"
                 >
                   Nama
                 </th>
                 <th
                   scope="col"
                   align="left"
-                  className="bg-slate-100 p-2 text-sm w-[200px]"
+                  className="bg-gray-100/70 p-2 text-sm w-[200px]"
                 ></th>
               </tr>
             </thead>
             <tbody>
               {data.map((d: any, i: number) => {
+                const { name, id, thumbnail, slug } = d;
                 return (
                   <tr key={i}>
-                    <td className="p-2" align="center">
+                    <td className="p-2 border-b" align="center">
                       {i + 1}
                     </td>
-                    <td className="p-2">{d.name}</td>
-                    <td className="p-2">
-                      <button className="text-sm inline-flex items-center  me-3 text-yellow-500 gap-2 hover:underline">
-                        <Pencil className="w-4" /> Edit
-                      </button>
-                      <button className="text-sm inline-flex items-center  text-red-600 gap-2 hover:underline">
-                        <Trash className="w-4" /> Delete
-                      </button>
+                    <td className="p-2 border-b">
+                      <Image
+                        src={thumbnail ?? "/images/default.png"}
+                        alt={name}
+                        width={50}
+                        height={50}
+                        className="aspect-square  rounded-md"
+                      />
+                    </td>
+                    <td className="p-2 border-b">{name}</td>
+                    <td className="p-2 border-b">
+                      <EditCategory data={{ name, slug }} />
+                      <DeleteCategory data={{ name, slug }} />
                     </td>
                   </tr>
                 );
               })}
               {data.length == 0 && (
                 <tr>
-                  <td className="p-2" colSpan={2}>
+                  <td className="p-2" colSpan={4} align="center">
                     Category data not available
                   </td>
                 </tr>

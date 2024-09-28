@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import React from "react";
-import Layout from "../../components/front/Layout";
+import Layout from "../../components/frontend/Layout";
 import Card from "../../components/Card";
 import SearchCourse from "./SearchCourse";
-import { useFetchServer } from "./../../../hooks/useFetch";
-import CategoryItem from "./../../components/CategoryItem";
+import { useFetchServer } from "../../../hooks/useFetch";
+import CategoryItem from "../../components/CategoryItem";
 export const metadata: Metadata = {
   title: "Coursey | All Course",
   description: "all  courses will be displayed here",
@@ -18,22 +18,30 @@ const page = async ({ searchParams }: { searchParams: any }) => {
   const { data: categories } = await useFetchServer(`/categories`);
   return (
     <Layout>
-      <div className="p-4">
-        <div className="mb-4 flex gap-2">
-          <CategoryItem baseUrl={"/"} href={" "} name={"All"} />
-          {categories.map((category: any, i: number) => {
-            return (
-              <CategoryItem
-                href={category.slug}
-                baseUrl={"/"}
-                key={i}
-                name={category.name}
-              />
-            );
-          })}
+      <div className="pb-4  ">
+        <div className="py-10  mb-10 bg-[#4955FD] px-4">
+          <h1 className="text-4xl text-center text-white md:w-[400px] mx-auto md:mb-4 mb-2 md:mt-6 mt-3 font-bold">
+            Start Your Learning Journey Today
+          </h1>
+          <p className="text-center  text-slate-200 md:w-[600px] mx-auto text-sm md:mb-10 mb-5">
+            Choose from a wide variety of courses and take the next step toward
+            achieving your goals. Enroll now and unlock your potential!
+          </p>
+          <SearchCourse />
         </div>
-        <SearchCourse />
-        <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
+        <div className="mb-4 flex overflow-x-auto no-scrollbar w-full gap-2 md:px-20 px-4">
+          <CategoryItem baseUrl={"/courses"} href={" "} name={"All"} />
+          {categories?.map((category: any, i: number) => (
+            <CategoryItem
+              href={category.slug}
+              baseUrl={"/courses"}
+              key={i}
+              name={category.name}
+            />
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 md:px-20 px-4">
           {courses?.map((course: any, i: number) => {
             return (
               <Card

@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../../../components/front/Navbar";
+import Navbar from "../../../../components/frontend/Navbar";
 import Video from "./Video";
 import ModuleList from "./ModuleList";
 import { useFetchServer } from "@/hooks/useFetch";

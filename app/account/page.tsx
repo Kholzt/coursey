@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/front/Layout";
+import Layout from "../components/frontend/Layout";
 import Image from "next/image";
 import { useFetchServer } from "./../../hooks/useFetch";
 import Card from "../components/Card";

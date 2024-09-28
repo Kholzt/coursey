@@ -1,5 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/context/GlobalContext";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 // import Link from "next/link";
@@ -12,16 +13,11 @@ const Navbar: React.FC = () => {
   };
   return (
     <nav className="flex border-b items-center sticky top-0 right-0 z-[99] bg-white py-2 px-4">
-      <Menu onClick={handleToggle} className="md:hidden cursor-pointer"/>
+      <Menu onClick={handleToggle} className="md:hidden cursor-pointer" />
       <div className="ms-auto">
-        <Image
-          src={"/images/profile.jpg"}
-          width={40}
-          height={40}
-          objectFit="cover"
-          alt="Profile picture"
-          className="rounded-full aspect-square object-cover"
-        />
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </nav>
   );
