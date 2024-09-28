@@ -6,18 +6,21 @@ const Loading = () => {
   const animationContainer = React.useRef(null);
 
   React.useEffect(() => {
-    const animationInstance = lottie.loadAnimation({
-      container: animationContainer.current,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      path: "/loading/loading.json",
-    });
+    // Pastikan `animationContainer.current` sudah terisi sebelum memulai animasi
+    if (animationContainer.current) {
+      const animationInstance = lottie.loadAnimation({
+        container: animationContainer.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/loading/loading.json",
+      });
 
-    // Cleanup function to avoid double animations
-    return () => {
-      animationInstance.destroy();
-    };
+      // Cleanup function untuk menghindari animasi ganda
+      return () => {
+        animationInstance?.destroy();
+      };
+    }
   }, []);
 
   return (
