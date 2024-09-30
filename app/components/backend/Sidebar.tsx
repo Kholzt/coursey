@@ -18,8 +18,8 @@ const menus = [
     icon: <Book className="w-5" />, // Ikon buku untuk My Course
   },
   {
-    href: "/admin/instrukture",
-    name: "Instrukture",
+    href: "/admin/instructor",
+    name: "Instructor",
     icon: <User className="w-5" />, // Ikon pengguna untuk Account
   },
 ];

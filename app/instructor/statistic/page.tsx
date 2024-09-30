@@ -1,9 +1,9 @@
 import React from "react";
-import Layout from "../components/frontend/Layout";
+import Layout from "../../../components/frontend/Layout";
 import Image from "next/image";
-import { useFetchServer } from "./../../hooks/useFetch";
-import Card from "../components/Card";
-import CategoryItem from "../components/CategoryItem";
+import { useFetchServer } from "../../../../hooks/useFetch";
+import Card from "../../../components/Card";
+import CategoryItem from "../../../components/CategoryItem";
 const page = async ({ searchParams }: { searchParams: any }) => {
   const category = searchParams.category
     ? "?category=" + searchParams.category
@@ -37,19 +37,19 @@ const page = async ({ searchParams }: { searchParams: any }) => {
           </div>
           <div className="w-full">
             <div className="mb-4 flex gap-2">
-               <CategoryItem baseUrl={"/account"} href={" "} name={"All"} />
-          {categories.map((category: any, i: number) => {
-            return (
-              <CategoryItem
-                href={category.slug}
-                baseUrl={"/account"}
-                key={i}
-                name={category.name}
-              />
-            );
-          })}
+              <CategoryItem baseUrl={" "} href={" "} name={"All"} />
+              {categories.map((category: any, i: number) => {
+                return (
+                  <CategoryItem
+                    href={category.slug}
+                    baseUrl={""}
+                    key={i}
+                    name={category.name}
+                  />
+                );
+              })}
             </div>
-            <div className="grid md:grid-cols-3 sm:grid-cols-2  gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1  gap-4">
               {courses?.map((course: any, i: number) => {
                 return (
                   <Card

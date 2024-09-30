@@ -5,17 +5,17 @@ import Card from "../../components/Card";
 import SearchCourse from "./SearchCourse";
 import { useFetchServer } from "../../../hooks/useFetch";
 import CategoryItem from "../../components/CategoryItem";
+import { getCategories } from "@/actions/categoriesAction";
+import { getCourses } from "@/actions/coursesAction";
 export const metadata: Metadata = {
   title: "Coursey | All Course",
   description: "all  courses will be displayed here",
 };
 
 const page = async ({ searchParams }: { searchParams: any }) => {
-  const category = searchParams.category
-    ? "?category=" + searchParams.category
-    : "";
-  const { data: courses } = await useFetchServer(`/courses${category}`);
-  const { data: categories } = await useFetchServer(`/categories`);
+  const category = searchParams.category ? searchParams.category : "";
+  const { data: courses } = await getCourses(true, category);
+  const { data: categories } = await getCategories();
   return (
     <Layout>
       <div className="pb-4  ">
@@ -56,7 +56,8 @@ const page = async ({ searchParams }: { searchParams: any }) => {
                 authorLink={`/author/${course.instructor.slug}`}
                 categoryLink={`/category/${course.category.slug}`}
                 module={course.modules.length}
-                purchased={course.enrollments.length}
+                purchased={course.purchased}
+                progress={course.enrollments.progress}
               />
             );
           })}

@@ -5,6 +5,7 @@ import { useFetchServer } from "@/hooks/useFetch";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Trash } from "lucide-react";
+import { deleteCategory } from "@/actions/categoriesAction";
 
 interface CategoryProps {
   name: string;
@@ -21,9 +22,7 @@ const DeleteCategory: React.FC<DeleteCategoryProps> = (props) => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const res = await useFetchServer("/categories/" + slug, {
-        method: "DELETE",
-      });
+      await deleteCategory(slug);
       router.refresh();
       toast.success("Category successfully deleted");
       setShow(false);

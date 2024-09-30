@@ -46,6 +46,7 @@ model Course {
   instructorId Int
   category    Category      @relation(fields: [categoryId], references: [id])
   categoryId  Int
+  published  Boolean       @default(false)
   modules     CourseModule[]
   enrollments Enrollment[]
   payments    Payment[]
@@ -62,6 +63,7 @@ model CourseModule {
   videoUrl    String?
   moduleType  ModuleType
   orderNumber Int
+  isFree  Boolean       @default(false)
   createdAt   DateTime      @default(now())
   quizzes     Quiz[]
 }

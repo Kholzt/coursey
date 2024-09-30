@@ -4,11 +4,13 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
+import { useUser, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
+import AuthButtons from "../Auth";
 
 const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const navLinks = [
@@ -18,9 +20,9 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className="flex items-center justify-between border-b sticky top-0 z-50 bg-white py-4 px-4 md:px-20">
+    <nav className="flex items-center  border-b sticky top-0 z-50 bg-white py-4 px-4 md:px-20">
       {/* Brand / Logo */}
-      <div className="text-xl font-bold">My Brand</div>
+      <div className="text-xl font-bold md:me-10">Coursey</div>
 
       {/* Desktop Navigation */}
       <ul className="hidden md:flex gap-8 items-center">
@@ -28,7 +30,9 @@ const Navbar: React.FC = () => {
           <li key={link.href}>
             <Link
               href={link.href}
-              className={pathname === link.href ? "text-[#4955FD]" : ""}
+              className={`${
+                pathname === link.href ? "text-[#4955FD]" : ""
+              } text-sm`}
             >
               {link.label}
             </Link>
@@ -37,18 +41,15 @@ const Navbar: React.FC = () => {
       </ul>
 
       {/* Profile Picture (hidden on mobile) */}
-      <div className="hidden md:block">
-        <Image
-          src="/images/profile.jpg"
-          width={40}
-          height={40}
-          alt="Profile picture"
-          className="rounded-full aspect-square w-[40px] "
-        />
+      <div className="hidden md:block ms-auto">
+        <AuthButtons />
       </div>
 
       {/* Mobile Menu Button */}
-      <button onClick={toggleMobileMenu} className="md:hidden">
+      <div className="md:hidden flex items-center ms-auto me-4">
+        <UserButton />
+      </div>
+      <button onClick={toggleMobileMenu} className="md:hidden ">
         <Menu className="w-6 h-6 text-gray-600" />
       </button>
 
@@ -63,20 +64,15 @@ const Navbar: React.FC = () => {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={pathname === link.href ? "text-[#4955FD]" : ""}
+                  className={`${
+                    pathname === link.href ? "text-[#4955FD]" : ""
+                  } text-sm`}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
-          <Image
-            src="/images/profile.jpg"
-            width={80}
-            height={80}
-            alt="Profile picture"
-            className="rounded-full aspect-square w-[40px] mt-10"
-          />
         </div>
       )}
     </nav>

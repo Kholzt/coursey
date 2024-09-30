@@ -4,7 +4,13 @@ import { slugify } from "@/utils/helpers";
 
 export async function GET(req: Request) {
   try {
-    const categories = await prisma.category.findMany({
+    const categories = await prisma.user.findMany({
+      where: {
+        role: "instructor",
+      },
+      include: {
+        courses: true,
+      },
       orderBy: {
         id: "desc",
       },

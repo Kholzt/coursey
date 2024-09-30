@@ -39,12 +39,14 @@ const Card: React.FC<CardProps> = (props) => {
       : progress > 50
       ? "bg-yellow-400"
       : "bg-red-400";
+
+  const priceFix = price != 0 ? formatRupiah(price) : "Free";
   return (
     <article className="p-3 border rounded-md flex flex-col hover:shadow-2xl transition-all hover:shadow-[#4955FD]/20">
       <figure className="relative">
         <Link href={href}>
           <Image
-            src={image}
+            src={image ?? "/images/default.png"}
             alt="Card 1"
             width={600} // Set appropriate width
             height={337} // Set appropriate height maintaining aspect ratio (e.g., 16:9 for videos)
@@ -76,16 +78,14 @@ const Card: React.FC<CardProps> = (props) => {
               <small className="">Progress {progress}%</small>
             </div>
           ) : (
-            <span className="block font-bold text-md mb-2">
-              {formatRupiah(price)}
-            </span>
+            <span className="block font-bold text-md mb-2">{priceFix}</span>
           )}
         </div>
         <div className="">
           <hr />
           <Link href={authorLink} className="flex mt-2 items-center gap-2">
             <Image
-              src={authorImage}
+              src={authorImage ?? "/images/default.png"}
               alt="Card 1"
               width={30} // Set appropriate width
               height={30} // Set appropriate height maintaining aspect ratio (e.g., 16:9 for videos)
